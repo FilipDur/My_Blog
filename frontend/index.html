@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <title>CIT UKOL Blog</title>
+  <link rel="stylesheet" href="/frontend/style.css">
+</head>
+<body>
+  <h1>CIT UKOL Blog</h1>
+  <form id="postForm">
+    <input type="text" id="title" placeholder="Nadpis" required>
+    <textarea id="content" placeholder="Obsah" required></textarea>
+    <button type="submit">Přidat příspěvek</button>
+  </form>
+  <div id="posts"></div>
+
+  <script>
+    const form = document.getElementById('postForm');
+    const postsDiv = document.getElementById('posts');
+
+    form.addEventListener('submit', async e => {
+      e.preventDefault();
+      const title = document.getElementById('title').value;
+      const content = document.getElementById('content').value;
+
+      await fetch('/api/posts', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ title, content })
+      });
+
+      loadPosts();
+      form.reset();
+    });
+
+    async function loadPosts() {
+      const res = await fetch('/api/posts');
+      const posts = await res.json();
+      postsDiv.innerHTML = posts.map(p => `<h3>${p.title}</h3><p>${p.content}</p>`).join('');
+    }
+
+    loadPosts();
+  </script>
+</body>
+</html>

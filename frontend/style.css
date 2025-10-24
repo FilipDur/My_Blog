@@ -1,0 +1,22 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 20px;
+}
+form {
+  margin-bottom: 20px;
+}
+input, textarea {
+  display: block;
+  margin-bottom: 10px;
+  width: 300px;
+  padding: 5px;
+}
+button {
+  padding: 5px 10px;
+}
+#posts h3 {
+  margin: 10px 0 5px;
+}
+#posts p {
+  margin: 0 0 15px;
+}
